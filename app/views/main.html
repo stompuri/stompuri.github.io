@@ -1,0 +1,37 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Home</a></li>
+    <li><a ng-href="#">About</a></li>
+    <li><a ng-href="#">Contact</a></li>
+  </ul>
+  <h3 class="text-muted">Portfolio</h3>
+</div>
+
+<h2> Portfolio </h2>
+
+<div id="itemsDiv">
+  <div ng-repeat="entry in items">
+  	<em>{{entry.title}}</em>: {{entry.desc}}
+  </div>
+</div>
+<br/>
+<a ng-click="inputFormVisible = !inputFormVisible" ng-hide="inputFormVisible" class="btn btn-primary btn-lg btn-block">Create a new entry</a>
+
+<form ng-submit="createItem()" ng-show="inputFormVisible" role="form">
+	<div class="form-group">
+	<input type="text" ng-model="item.title" placeholder="Title" class="form-control"></input>
+	</div>
+	<div class="form-group">
+	<input type="text" ng-model="item.desc" placeholder="Description..." class="form-control"></input>
+	</div>
+	<div class="form-group">
+	<input type="text" ng-model="item.link" class="form-control"></input>
+	</div>
+	<div class="form-group">
+	<input type="text" ng-model="item.imgUrl" class="form-control"></input>
+	</div>
+	<button class="btn btn-primary">create</button>
+	<button class="btn btn-default" ng-click="inputFormVisible = !inputFormVisible">hide</button>
+</form>
+
+{{item}}
