@@ -4,6 +4,21 @@ body {
   padding-bottom: 20px;
 }
 
+.leftcell {
+  float: left;
+  margin-right: 20px;
+  background: #ccc;
+  text-align: left;
+}
+.leftcell img {
+  display: block;
+  height: auto;
+}
+
+.rightcell {
+  text-align: left;
+}
+
 .flash {
   margin: auto;
   position: absolute;
@@ -104,7 +119,7 @@ body {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 800px;
   }
 }
 .container-narrow > hr {
@@ -123,7 +138,7 @@ body {
   display: table-cell;
 }
 .view-item {
-  max-width:300px;
+  max-width:500px;
 }
 
 /* Main marketing message and sign up button */

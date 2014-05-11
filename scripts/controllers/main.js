@@ -192,6 +192,7 @@ app.controller('PortfolioCtrl',
       $scope.items.$add({
         title: $scope.item.title,
         platform: $scope.item.platform,
+        year: $scope.item.year,
         loc: $scope.item.loc,
         desc: $scope.item.desc,
         link: $scope.item.link,
