@@ -1,0 +1,28 @@
+<h2> My SW develoment portfolio </h2>
+
+<a ng-click="openNewForm()"
+   ng-show="loginObj.user && !inputFormVisible"
+   class="btn btn-primary btn-sm btn-block"
+   style="max-width: 150px;">
+	Create a new entry
+</a>
+
+<stinput></stinput>
+
+<br/>
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+		<label for="filter" class="col-sm-2 control-label">Filter items by</label>
+		<div class="col-sm-10">
+			<input
+			  id="filter"
+			  placeholder="<include text>"
+			  class="form-control view-item"
+			  data-ng-model="searchText">
+		</div>
+	</div>
+</form>
+
+<div ng-repeat="item in items | orderByPriority | filter:searchText">
+	<stitem></stitem>
+</div>

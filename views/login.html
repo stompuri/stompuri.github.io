@@ -1,0 +1,40 @@
+<div class="login_content">
+	<span ng-show="loginObj.user" class="small">
+	  {{loginObj.user.email}} | <a href="#" ng-click="loginObj.$logout()">
+	  Logout</a>
+	</span>
+
+	<span ng-hide="loginObj.user" class="small">
+	  Log in to manage portfolio items
+	</span>
+
+	<form ng-submit="loginUser()">
+		<div class="input-group input-group-sm textbox">
+		  <input
+		    type="text"
+		    ng-model="user.email"
+		    placeholder="email"
+		    class="form-control">
+		  </input>
+		  <input
+		    type="password"
+		    ng-model="user.password"
+		    placeholder="password"
+		    class="form-control">
+		  </input>
+		</div>
+
+		<button
+		  ng-hide="loginObj.user"
+		  ng-click="loginUser()"
+		  class="btn btn-primary btn-xs">
+		  Login
+		</button>
+		<button
+		  ng-show="loginObj.user"
+		  ng-click="addUser()"
+		  class="btn btn-warning btn-xs">
+		  Add user
+		</button>
+	</form>
+</div>

@@ -24,7 +24,10 @@
     <script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"></script>
     <!-- AngularFire -->
     <script src='https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js'></script>
-
+    <!-- FirebaseSimpleLogin -->
+    <script type='text/javascript'
+        src='https://cdn.firebase.com/js/simple-login/1.4.1/firebase-simple-login.js'>
+    </script>
   </head>
   <body ng-app="portfolioApp">
     <!--[if lt IE 7]>
@@ -32,7 +35,13 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <!-- Login bar -->
+    <div class="box topright" ng-include="'views/login.html'" ng-controller="AuthCtrl"></div>
+    <!-- Menu bar -->
+    <div class="container menu" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+
+    <!-- content -->
+    <div ng-view class="view-container"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -61,10 +70,11 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <!-- endbuild -->
+    
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/sha256.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

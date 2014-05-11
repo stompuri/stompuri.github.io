@@ -1,0 +1,29 @@
+<div class="container fill border viewbox form-horizontal">
+	<div class="closebtn">
+		<button type="button"
+		  class="btn btn-default btn-xs"
+		  ng-show="loginObj.user"
+		  ng-click="deleteItem(item.$id)">
+		  	<span class="glyphicon glyphicon-trash"></span> 
+		</button>
+	</div>
+
+	<div class="col-sm-2">
+		<span class="helper"></span>
+		<img ng-src="{{item.imgUrl}}" class="img-responsive" alt="{{item.title}}">
+	</div>
+	<div class="col-sm-10">
+		<dl class="dl-horizontal">
+			<dt>Title:</dt>
+			<dd>{{item.title}}</dd>
+			<dt>Platform:</dt>
+			<dd>{{item.platform}}</dd>
+			<dt>LOC:</dt>
+			<dd>{{item.loc}}</dd>
+			<dt>Description:</dt>
+			<dd>{{item.desc}}</dd>
+			<dt>Link:</dt>
+			<dd><a href="http://{{item.link}}" target="_blank">{{item.link}}</a></dd>
+		</dl>
+	</div>
+</div>

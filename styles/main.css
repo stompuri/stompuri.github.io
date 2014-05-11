@@ -4,6 +4,70 @@ body {
   padding-bottom: 20px;
 }
 
+.flash {
+  margin: auto;
+  position: absolute;
+  top: 122px;
+  min-width:300px;
+  height:50px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index:1000;
+  border: 1px solid #000000;
+  text-align: center;
+  font-weight: bold;
+}
+
+.border {
+  border: 1px solid #a0a0a0;
+}
+
+.textbox {  
+  width:98%;
+  padding:5px;
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.closebtn {
+  position:relative;
+  float: right;
+}
+
+.viewbox {
+  margin:10px;
+  padding:5px;
+  box-shadow:
+    5px 8px 8px rgba(0,0,0,0.75),
+    inset 5px 8px 8px rgba(255,255,255,0.4);
+  background:#ccc;
+}
+
+.box {
+  margin:10px;
+  padding:5px;
+  width:250px;
+  height:120px;
+  box-shadow:
+    5px 8px 8px rgba(0,0,0,0.75),
+    inset 5px 8px 8px rgba(255,255,255,0.4);
+  background:#ccc;
+  text-align:center;
+}
+
+.login_content {
+  position:absolute;
+  bottom:6px;
+}
+
+.menu {
+
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -21,7 +85,7 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
-  padding-bottom: 19px;
+  padding-bottom: 10px;
 }
 
 /* Custom page footer */
@@ -29,6 +93,12 @@ body {
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+}
+
+.topright {
+  position: absolute;
+  right:0px;
+  top:0px;
 }
 
 /* Customize container */
@@ -39,6 +109,21 @@ body {
 }
 .container-narrow > hr {
   margin: 30px 0;
+}
+.view-container {
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.view-form {
+  padding:5px;
+  border-style:dotted;
+  border-width:1px;
+  min-width: 400px;
+  display: table-cell;
+}
+.view-item {
+  max-width:300px;
 }
 
 /* Main marketing message and sign up button */
@@ -76,4 +161,8 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+#spin {
+  height: 60px;
 }
