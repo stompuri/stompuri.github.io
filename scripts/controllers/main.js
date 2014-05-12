@@ -1,8 +1,10 @@
 var app = angular.module('portfolioControllers', ["firebase"]);
+/* CONSTANTS: */
 app.constant('FIREBASE', {
   url: "https://burning-fire-6770.firebaseio.com/"
 })
 
+/* SERVICES: */
 app.factory('LoginService',
   function(FIREBASE, $firebaseSimpleLogin) {
     var REF = new Firebase(FIREBASE.url);
@@ -31,6 +33,7 @@ app.factory('ItemsService',
   }
 );
 
+/* COMMUNICATION between controllers: */
 app.factory('FlashService', function() {
   return {message: null};
 });
@@ -39,6 +42,7 @@ app.factory('MenuService', function() {
   return 'about';
 });
 
+/* DIRECTIVES: */
 app.directive('stflash', function() {
   return {
     restrict: 'AE',
@@ -112,6 +116,7 @@ app.directive('stinput', ['ItemsService',
   }
 ]);
 
+/* CONTROLLERS: */
 app.controller('MainCtrl', ['$scope', 'FlashService', 'AboutService', 'MenuService',
   function ($scope, flashService, aboutService, menuService) {
     $scope.selected = menuService;
