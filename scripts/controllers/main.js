@@ -33,6 +33,13 @@ app.factory('ItemsService',
   }
 );
 
+app.factory('ItemService',
+  function(FIREBASE, $firebase) {
+    var REF = new Firebase(FIREBASE.url + 'items/');
+    return $firebase(REF);
+  }
+);
+
 /* COMMUNICATION between controllers: */
 app.factory('FlashService', function() {
   return {message: null};
@@ -40,6 +47,10 @@ app.factory('FlashService', function() {
 
 app.factory('MenuService', function() {
   return 'about';
+});
+
+app.factory('UploadService', function() {
+  return {url: null};
 });
 
 /* DIRECTIVES: */
@@ -70,19 +81,22 @@ app.directive('stitem', ['ItemsService',
   }
 ]);
 
-app.directive('stfileinput', ['FIREBASE',
-  function(FIREBASE) {
+app.directive('stfileinput', ['FIREBASE', 'UploadService',
+  function(FIREBASE, uploadService) {
     return {
       restrict: 'E',
       replace: true,
+      transclude: true,
+      scope: {
+        target: '@target',
+        accept: '@accept'
+      },
       templateUrl: 'views/fileinput.html',
       link: function($scope, element, attrs) {
-        var control = document.getElementById("file-upload");
-        control.addEventListener('change', function(event) {
+        element.bind('change', function(event) {
           var f = event.target.files[0];
           var reader = new FileReader();
-          $scope.upload = '';
-
+          $scope.upload = uploadService;
           reader.onload = ( function(theFile, $scope) {
             return function(e) {
               var filePayload = e.target.result;
@@ -93,10 +107,10 @@ app.directive('stfileinput', ['FIREBASE',
               // Set the file payload to Firebase and register an onComplete handler to stop the spinner and show the preview
               f.set(filePayload, function() {
                 // Update img src if such found
-                if(document.getElementById("pano")) {
-                  document.getElementById("pano").src = e.target.result;
+                if(document.getElementById("pano-" + attrs['target'])) {
+                  document.getElementById("pano-" + attrs['target']).src = e.target.result;
                 }
-                $scope.upload = e.target.result;
+                $scope.upload.url = e.target.result;
               });
             };
           })(f, $scope);
@@ -144,7 +158,7 @@ app.controller('AboutCtrl',
         name: $scope.about.name,
         text: $scope.about.text,
         link: $scope.about.link,
-        imgUrl: $scope.upload
+        imgUrl: $scope.upload.url
       });
 
       // Define the flash pop-up
@@ -175,11 +189,12 @@ app.controller('ContactCtrl', ['LoginService', '$scope', '$routeParams', 'AboutS
 ]);
 
 app.controller('PortfolioCtrl',
-  ['$scope', '$routeParams', 'ItemsService', 'LoginService', 'FlashService',// 'FileUploadService',
-  function($scope, $routeParams, firebaseService, loginService, flashService) {
+  ['$scope', '$routeParams', 'ItemsService', 'LoginService', 'FlashService', 'FIREBASE', 'UploadService',
+  function($scope, $routeParams, firebaseService, loginService, flashService, FIREBASE, uploadService) {
     // Initialize item object
     $scope.item = {};
     $scope.flash = flashService;
+    $scope.upload = uploadService;
     //var spinner = new Spinner({color: '#ddd'});
 
     // Get login object
@@ -201,13 +216,26 @@ app.controller('PortfolioCtrl',
         loc: $scope.item.loc,
         desc: $scope.item.desc,
         link: $scope.item.link,
-        imgUrl: $scope.upload});
+        imgUrl: $scope.upload.url});
 
       // Define the flash pop-up
       $scope.flash.message = "A new portfolio item '" + $scope.item.title + "' added!";
       // Clear & hide the input form
       $scope.inputFormVisible = false;
       $scope.item = {};
+    };
+
+    // Edit item
+    $scope.editItem = function(item, uploadService) {
+      $scope.upload = uploadService;
+      $scope.flash = flashService;
+      item.imgUrl = $scope.upload.url;
+      console.log(item.imgUrl);
+      $scope.items.$save(item.$id);
+
+      // Define the flash pop-up
+      $scope.flash.message = "Portfolio item '" + item.title + "' edited!";
+      alert($scope.flash.message);
     };
 
     $scope.deleteItem = function(key) {
@@ -252,7 +280,6 @@ app.controller('AuthCtrl', ['$scope', 'LoginService', 'FlashService',
     }
 
     $scope.logOut = function() {
-      alert($scope.loginObj)
       $scope.loginObj.$logout();
       $scope.selected = menuService;
       $scope.selected = 'about';

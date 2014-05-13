@@ -1,13 +1,4 @@
-<div class="container fill border viewbox form-horizontal">
-	<div class="closebtn">
-		<button type="button"
-		  class="btn btn-default btn-xs"
-		  ng-show="loginObj.user"
-		  ng-click="deleteItem(item.$id)">
-		  	<span class="glyphicon glyphicon-trash"></span> 
-		</button>
-	</div>
-
+<div ng-hide="loginObj.user" class="container fill border viewbox form-horizontal">
 	<div class="leftcell">
 		<span class="helper"></span>
 		<img ng-src="{{item.imgUrl}}" width="200" alt="{{item.title}}">
@@ -16,16 +7,103 @@
 		<dl class="dl-horizontal">
 			<dt>Title:</dt>
 			<dd>{{item.title}}</dd>
-			<dt>Platform:</dt>
-			<dd>{{item.platform}}</dd>
-			<dt>LOC:</dt>
-			<dd>{{item.loc}}</dd>
-			<dt>Link:</dt>
-			<dd><a href="http://{{item.link}}" target="_blank">{{item.link}}</a></dd>
+			<dt ng-show="{{item.platform}}">Platform:</dt>
+			<dd ng-show="{{item.platform}}">{{item.platform}}</dd>
+			<dt ng-show="{{item.loc}}">LOC:</dt>
+			<dd ng-show="{{item.loc}}">{{item.loc}}</dd>
+			<dt ng-show="{{item.link}}">Link:</dt>
+			<dd ng-show="{{item.link}}"><a href="http://{{item.link}}" target="_blank">{{item.link}}</a></dd>
 		</dl>
 	</div>
 	<div class="leftcell">
 		<dt>Description:</dt>
 		<dd><small>{{item.desc}}</small></dd>
 	</div>
+</div>
+
+<div ng-show="loginObj.user" class="container fill border viewbox">
+	<div class="closebtn">
+		<button type="button"
+		  class="btn btn-default btn-xs"
+		  ng-show="loginObj.user"
+		  ng-click="deleteItem(item.$id)">
+		  	<span class="glyphicon glyphicon-trash"></span> 
+		</button>
+	</div>
+	<form>
+		<div class="form-group">
+			<img ng-src="{{item.imgUrl}}" class="image" width="150" alt="{{item.title}}" id="pano-{{item.$id}}">
+			<br>
+			<stfileinput target="{{item.$id}}" accept="image/*"></stfileinput>
+		</div>
+
+		<div class="form-group">
+			<label for="itemTitle" class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+				<input
+				  id="itemTitle"
+				  type="text"
+				  ng-model="item.title" 
+				  placeholder="<title>" 
+				  class="form-control view-item">
+				</input>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="itemPlatform" class="col-sm-2 control-label">Platform</label>
+			<div class="col-sm-10">
+				<input
+				  id="itemPlatform"
+				  type="text"
+				  ng-model="item.platform" 
+				  placeholder="<platform>" 
+				  class="form-control view-item">
+				</input>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="itemLOC" class="col-sm-2 control-label">LOC</label>
+			<div class="col-sm-10">
+				<input 
+				  id="itemLOC"
+				  type="text" 
+				  ng-model="item.loc" 
+				  placeholder="<lines of code>" 
+				  class="form-control view-item">
+				</input>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="itemLink" class="col-sm-2 control-label">Link</label>
+			<div class="col-sm-10">
+				<input 
+				  id="itemLink"
+				  type="text" 
+				  ng-model="item.link" 
+				  placeholder="<web link>" 
+				  class="form-control view-item">
+				</input>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="itemDesc" class="control-label">Description</label>
+			<div class="form-group">
+				<textarea
+				  id="itemDesc"
+				  rows="5"
+				  ng-model="item.desc" 
+				  placeholder="<description of {{item.title}}>" 
+				  class="form-control">
+				</textarea>
+			</div>
+		</div>
+
+		<button ng-click="editItem(item, upload)" class="btn btn-primary">
+			Save
+		</button>
+	</form>
 </div>
