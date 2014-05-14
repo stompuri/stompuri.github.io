@@ -26,6 +26,13 @@ app.factory('ContactService',
   }
 );
 
+app.factory('PhotoService',
+  function(FIREBASE, $firebase) {
+    var REF = new Firebase(FIREBASE.url + 'pano/');
+    return $firebase(REF);
+  }
+);
+
 app.factory('ItemsService',
   function(FIREBASE, $firebase) {
     var REF = new Firebase(FIREBASE.url + 'items/');
@@ -50,7 +57,7 @@ app.factory('MenuService', function() {
 });
 
 app.factory('UploadService', function() {
-  return {url: null};
+  return {url: null, hash: null};
 });
 
 /* DIRECTIVES: */
@@ -111,6 +118,7 @@ app.directive('stfileinput', ['FIREBASE', 'UploadService',
                   document.getElementById("pano-" + attrs['target']).src = e.target.result;
                 }
                 $scope.upload.url = e.target.result;
+                $scope.upload.hash = hash;
               });
             };
           })(f, $scope);
@@ -145,21 +153,22 @@ app.controller('MainCtrl', ['$scope', 'FlashService', 'AboutService', 'MenuServi
 ]);
 
 app.controller('AboutCtrl',
-  ['LoginService', 'AboutService', 'FlashService', '$scope', '$routeParams',
-  function(loginService, aboutService, flashService, $scope, $routeParams) {
+  ['LoginService', 'AboutService', 'FlashService', '$scope', '$routeParams', 'UploadService', 'PhotoService',
+  function(loginService, aboutService, flashService, $scope, $routeParams, uploadService, photoService) {
     $scope.flash = flashService; // Get ref to flash message
     $scope.about = aboutService; // Get ref to about info
     $scope.loginObj = loginService; // Get ref to login info
+    $scope.upload = uploadService; // Get ref to file upload service
 
     $scope.save = function () {
+      // Delete old image if such exists
+      $scope.photos = photoService;
+      $scope.photos.$remove($scope.about.hash + '/filePayload');
+
       // Create & add the item defined by the input form
-      $scope.about.$set({
-        prefix: $scope.about.prefix,
-        name: $scope.about.name,
-        text: $scope.about.text,
-        link: $scope.about.link,
-        imgUrl: $scope.upload.url
-      });
+      $scope.about.imgUrl = $scope.upload.url;
+      $scope.about.hash = $scope.upload.hash;
+      $scope.about.$save();
 
       // Define the flash pop-up
       $scope.flash.message = "About info edited!";
@@ -189,8 +198,8 @@ app.controller('ContactCtrl', ['LoginService', '$scope', '$routeParams', 'AboutS
 ]);
 
 app.controller('PortfolioCtrl',
-  ['$scope', '$routeParams', 'ItemsService', 'LoginService', 'FlashService', 'FIREBASE', 'UploadService',
-  function($scope, $routeParams, firebaseService, loginService, flashService, FIREBASE, uploadService) {
+  ['$scope', '$routeParams', 'ItemsService', 'LoginService', 'FlashService', 'FIREBASE', 'UploadService', 'PhotoService',
+  function($scope, $routeParams, firebaseService, loginService, flashService, FIREBASE, uploadService, photoService) {
     // Initialize item object
     $scope.item = {};
     $scope.flash = flashService;
@@ -216,7 +225,8 @@ app.controller('PortfolioCtrl',
         loc: $scope.item.loc,
         desc: $scope.item.desc,
         link: $scope.item.link,
-        imgUrl: $scope.upload.url});
+        imgUrl: $scope.upload.url,
+        hash: $scope.upload.hash});
 
       // Define the flash pop-up
       $scope.flash.message = "A new portfolio item '" + $scope.item.title + "' added!";
@@ -229,8 +239,14 @@ app.controller('PortfolioCtrl',
     $scope.editItem = function(item, uploadService) {
       $scope.upload = uploadService;
       $scope.flash = flashService;
+
+      // Delete old image if such exists
+      $scope.photos = photoService;
+      $scope.photos.$remove($scope.about.hash + '/filePayload');
+
+      // Push changes to Firebase
       item.imgUrl = $scope.upload.url;
-      console.log(item.imgUrl);
+      item.hash = $scope.upload.hash;
       $scope.items.$save(item.$id);
 
       // Define the flash pop-up
