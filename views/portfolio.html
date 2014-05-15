@@ -23,6 +23,7 @@
 	</div>
 </form>
 
-<div ng-repeat="item in items | orderByPriority | filter:searchText">
+<div ng-repeat="item in items | listToArray:searchText |
+				orderBy:'year':true">
 	<stitem></stitem>
 </div>
