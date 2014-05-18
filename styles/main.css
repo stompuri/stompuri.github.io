@@ -4,6 +4,20 @@ body {
   padding-bottom: 20px;
 }
 
+dl {
+ width:100%;
+ overflow:hidden;
+}
+.dt-horizontal {
+ float:left;
+ width:20%; /* adjust the width; make sure the total of both is 100% */
+}
+.dd-horizontal {
+ float:left;
+ width:80%; /* adjust the width; make sure the total of both is 100% */
+}
+
+
 .top {
   vertical-align:text-top;
 }
@@ -12,17 +26,30 @@ body {
   position:absolute;
   left:0;
   top:0;
-  width:200px;
+  width:202px;
+  height:100%;
+  margin-left:4px;
 }
-.leftcell img {
+.image {
+  max-width:200px;
   display: block;
   height: auto;
+  border: 1px solid #000000;
+  vertical-align: middle;
+}
+
+.helper {
+  display: inline-block;
+  height: 40px;
+  vertical-align: middle;
 }
 
 .rightcell {
   float:right;
-  margin-left:201px;
+  margin-left:202px;
   overflow:auto;
+  text-align: left;
+  padding: 2px;
 }
 
 .centercell {
@@ -53,12 +80,6 @@ body {
   padding:5px;
 }
 
-.helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-
 .closebtn {
   position:relative;
   float: right;
@@ -72,7 +93,8 @@ body {
   box-shadow:
     5px 8px 8px rgba(0,0,0,0.75),
     inset 5px 8px 8px rgba(255,255,255,0.4);
-  background:#ccc;
+  background:#fff;
+  text-align: left;
 }
 
 .box {

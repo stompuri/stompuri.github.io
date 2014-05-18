@@ -1,4 +1,4 @@
-var app = angular.module('portfolioControllers', ["firebase"]);
+var app = angular.module('portfolioControllers', ["firebase", "ngAnimate"]);
 /* FILTERS */
 // Filter portfolio items by text
 app.filter('listToArray', function() {
@@ -7,7 +7,11 @@ app.filter('listToArray', function() {
     angular.forEach(items, function(item) {
       if(typeof(item) != "function" && item != "items") {
         if(searchText) {
-          if(item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1) {
+          if(
+            item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+            item.platform.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+            item.desc.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+          ){
             filtered.push(item);
           }
         } else {
@@ -177,12 +181,29 @@ app.controller('MainCtrl', ['$scope', 'FlashService', 'AboutService', 'MenuServi
 ]);
 
 app.controller('AboutCtrl',
-  ['LoginService', 'AboutService', 'FlashService', '$scope', '$routeParams', 'UploadService', 'PhotoService',
-  function(loginService, aboutService, flashService, $scope, $routeParams, uploadService, photoService) {
+  ['LoginService',
+   'AboutService', 
+   'FlashService', 
+   '$scope', 
+   '$routeParams', 
+   'UploadService', 
+   'PhotoService', 
+   'MenuService',
+  function(loginService, 
+           aboutService, 
+           flashService, 
+           $scope, 
+           $routeParams, 
+           uploadService, 
+           photoService,
+           menuService
+           ) {
     $scope.flash = flashService; // Get ref to flash message
     $scope.about = aboutService; // Get ref to about info
     $scope.loginObj = loginService; // Get ref to login info
     $scope.upload = uploadService; // Get ref to file upload service
+    $scope.selected = menuService; // Get handle to menu selection
+    $scope.selected = 'about'; // Make sure the selection is in 'about'
 
     $scope.save = function () {
 
@@ -207,13 +228,29 @@ app.controller('AboutCtrl',
   }
 ]);
 
-app.controller('ContactCtrl', ['LoginService', '$scope', '$routeParams', 'AboutService', 'ContactService', 'FlashService',
-  function(loginService, $scope, $routeParams, aboutService, contactService, flashService) {
+app.controller('ContactCtrl',
+  ['LoginService', 
+   '$scope', 
+   '$routeParams', 
+   'AboutService', 
+   'ContactService', 
+   'FlashService',
+   'MenuService',
+  function(loginService, 
+           $scope, 
+           $routeParams, 
+           aboutService, 
+           contactService, 
+           flashService,
+           menuService
+           ) {
     $scope.flash = flashService; // Get ref to flash message
     $scope.about = aboutService; // Get ref to about info
     $scope.contact = contactService; // Get ref to contact info
     $scope.loginObj = loginService; // Get ref to login info
-
+    $scope.selected = menuService; // Get handle to menu selection
+    $scope.selected = 'contact'; // Make sure the selection is in 'about'
+    
     $scope.save = function () {
       // Create & add the item defined by the input form
       $scope.contact.$set({
@@ -236,12 +273,32 @@ app.controller('DebugCtrl',
 ]);
 
 app.controller('PortfolioCtrl',
-  ['$scope', '$routeParams', 'ItemsService', 'LoginService', 'FlashService', 'FIREBASE', 'UploadService', 'PhotoService',
-  function($scope, $routeParams, firebaseService, loginService, flashService, FIREBASE, uploadService, photoService) {
+  ['$scope', 
+   '$routeParams', 
+   'ItemsService', 
+   'LoginService', 
+   'FlashService', 
+   'FIREBASE', 
+   'UploadService', 
+   'PhotoService',
+   'MenuService',
+  function($scope, 
+           $routeParams, 
+           firebaseService, 
+           loginService, 
+           flashService, 
+           FIREBASE, 
+           uploadService, 
+           photoService,
+           menuService
+           ) {
     // Initialize item object
     $scope.item = {};
     $scope.flash = flashService;
     $scope.upload = uploadService;
+    $scope.selected = menuService; // Get handle to menu selection
+    $scope.selected = 'portfolio'; // Make sure the selection is in 'about'
+    
     //var spinner = new Spinner({color: '#ddd'});
 
     // Get login object

@@ -1,26 +1,25 @@
-<div style="position:relative;"
+<div style="position:relative; background-color:#bbbbbb;"
      ng-hide="loginObj.user"
      class="container fill border viewbox form-horizontal">
 	<!-- fill border viewbox form-horizontal-->
 	<div class="leftcell">
 		<span class="helper"></span>
-		<img ng-src="{{item.imgUrl}}" class="image" width="200" alt="{{item.title}}">
+		<img ng-src="{{item.imgUrl}}" class="image" alt="{{item.title}}">
 	</div>
-	<div class="rightcell"-->
-		<dl class="dl-horizontal">
-			<dt>Title:</dt>
-			<dd>{{item.title}}</dd>
-			<dt ng-show="item.platform">Platform:</dt>
-			<dd ng-show="item.platform">{{item.platform}}</dd>
-			<dt ng-show="item.loc">LOC:</dt>
-			<dd ng-show="item.loc">{{item.loc}}</dd>
-			<dt ng-show="item.link">Link:</dt>
-			<dd ng-show="item.link"><a href="http://{{item.link}}" target="_blank">{{item.link}}</a></dd>
-		</dl>
-		<dl>
-			<dt>Description:</dt>
-			<dd><small>{{item.desc}}</small></dd>
-		</dl>
+	<div class="rightcell border" style="background-color:#eeeeee;">
+			<dl>
+				<dt class="dt-horizontal">Title:</dt>
+				<dd class="dd-horizontal">{{item.title}}</dd>
+				<dt class="dt-horizontal" ng-show="item.platform">Platform:</dt>
+				<dd class="dd-horizontal" ng-show="item.platform">{{item.platform}}</dd>
+				<dt class="dt-horizontal" ng-show="item.loc">LOC:</dt>
+				<dd class="dd-horizontal" ng-show="item.loc">{{item.loc}}</dd>
+				<dt class="dt-horizontal" ng-show="item.link">Link:</dt>
+				<dd class="dd-horizontal" ng-show="item.link"><a href="http://{{item.link}}" target="_blank">{{item.link}}</a></dd>
+				<dt>Description:</dt>
+				<dd><small>{{item.desc}}</small></dd>
+			</dl>
+
 	</div>
 </div>
 

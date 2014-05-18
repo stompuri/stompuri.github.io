@@ -11,15 +11,17 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css" type="text/css">
+    <link rel="stylesheet" href="styles/main.css" type="text/css">
     <!-- endbuild -->
 
     <!-- AngularJS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.6/angular.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.6/angular-animate.js'></script>
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"></script>
     <!-- AngularFire -->
@@ -28,6 +30,7 @@
     <script type='text/javascript'
         src='https://cdn.firebase.com/js/simple-login/1.4.1/firebase-simple-login.js'>
     </script>
+
   </head>
   <body ng-app="portfolioApp">
     <!--[if lt IE 7]>

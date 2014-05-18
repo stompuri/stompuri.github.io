@@ -9,21 +9,24 @@
 
 <stinput></stinput>
 
-<br/>
-<form class="form-horizontal" role="form">
-	<div class="form-group">
-		<label for="filter" class="col-sm-2 control-label">Filter items by</label>
-		<div class="col-sm-10">
-			<input
+<span style="text-align: left; display: inline-block; vertical-align: middle;" >
+	<div style="float:left">
+		<label for="filter" class="control-label" style="line-height:35px;">
+			Filter by 
+		</label>
+	</div>
+	<div style="float:right">
+		<input
 			  id="filter"
 			  placeholder="<include text>"
 			  class="form-control view-item"
 			  data-ng-model="searchText">
-		</div>
 	</div>
-</form>
+</span>
+<br>
 
 <div ng-repeat="item in items | listToArray:searchText |
-				orderBy:'year':true">
+				orderBy:'year':true"
+	 class="animate-repeat">
 	<stitem></stitem>
 </div>

@@ -20,6 +20,10 @@ portfolioApp.config(['$routeProvider',
         templateUrl: 'views/portfolio.html',
         controller: 'PortfolioCtrl'
       })
+      .when('/debug', {
+        templateUrl: 'views/debug.html',
+        controller: 'DebugCtrl'
+      })
       .otherwise({
         redirectTo: '/about'
       }
