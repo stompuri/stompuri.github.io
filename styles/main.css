@@ -8,6 +8,9 @@ dl {
  width:100%;
  overflow:hidden;
 }
+
+html         { overflow-y:scroll; }
+
 .dt-horizontal {
  float:left;
  width:20%; /* adjust the width; make sure the total of both is 100% */
@@ -17,6 +20,13 @@ dl {
  width:80%; /* adjust the width; make sure the total of both is 100% */
 }
 
+.viewitems {
+  position: absolute;
+  bottom:0;
+  max-width: 780px;
+  top:100px;
+  vertical-align: top; 
+}
 
 .top {
   vertical-align:text-top;

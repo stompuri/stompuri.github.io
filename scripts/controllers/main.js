@@ -10,7 +10,8 @@ app.filter('listToArray', function() {
           if(
             item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
             item.platform.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
-            item.desc.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+            item.desc.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+            item.lang.toLowerCase().indexOf(searchText.toLowerCase()) > -1
           ){
             filtered.push(item);
           }
