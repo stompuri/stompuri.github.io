@@ -380,6 +380,9 @@ app.controller('AuthCtrl', ['$scope', 'LoginService', 'FlashService',
     // Initialize empty user object
     $scope.user = {};
 
+    // visibility
+    $scope.loginShown = false;
+
     $scope.loginUser = function() {
       if(!$scope.loginObj.user) {
         $scope.loginObj.$login('password', {

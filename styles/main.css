@@ -103,6 +103,12 @@ html         { overflow-y:scroll; }
   position:relative;
   float: right;
   top:-5px;
+}
+
+.deletebtn {
+  position:relative;
+  float: right;
+  top:-5px;
   right:-5px;
 }
 
@@ -238,7 +244,7 @@ html         { overflow-y:scroll; }
   text-align:center;
   padding-top:20px;
   width:100%;
-  background:#eeeeee;
+  background:#dddddd;
 }
 
 .page {
