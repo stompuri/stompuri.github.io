@@ -5,8 +5,16 @@ body {
 }
 
 dl {
- width:100%;
- overflow:hidden;
+  overflow:hidden;
+}
+
+dt {
+  float: left;
+  clear: left;
+  min-width: 9em;
+}
+dd {
+  overflow: hidden;
 }
 
 html         { overflow-y:scroll; }
@@ -240,6 +248,7 @@ html         { overflow-y:scroll; }
   text-align:center;
   padding-top:10px;
   width:100%;
+  overflow: auto;
 }
 
 .page-portfolio    { background:#dddddd; color:#000000; }
@@ -250,3 +259,4 @@ html         { overflow-y:scroll; }
 #spin {
   height: 60px;
 }
+
