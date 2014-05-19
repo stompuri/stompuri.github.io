@@ -205,6 +205,7 @@ app.controller('AboutCtrl',
     $scope.upload = uploadService; // Get ref to file upload service
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'about'; // Make sure the selection is in 'about'
+    $scope.pageClass = 'page-about';
 
     $scope.save = function () {
 
@@ -251,6 +252,7 @@ app.controller('ContactCtrl',
     $scope.loginObj = loginService; // Get ref to login info
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'contact'; // Make sure the selection is in 'about'
+    $scope.pageClass = 'page-contact';
     
     $scope.save = function () {
       // Create & add the item defined by the input form
@@ -299,6 +301,7 @@ app.controller('PortfolioCtrl',
     $scope.upload = uploadService;
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'portfolio'; // Make sure the selection is in 'about'
+    $scope.pageClass = 'page-portfolio';
     
     //var spinner = new Spinner({color: '#ddd'});
 

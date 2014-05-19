@@ -21,8 +21,8 @@ html         { overflow-y:scroll; }
 }
 
 .viewitems {
-  position: absolute;
-  bottom:0;
+  /*position: absolute;
+  bottom:0;*/
   max-width: 780px;
   top:100px;
   vertical-align: top; 
@@ -124,10 +124,6 @@ html         { overflow-y:scroll; }
   bottom:6px;
 }
 
-.menu {
-
-}
-
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,
@@ -222,6 +218,32 @@ html         { overflow-y:scroll; }
     border-bottom: 0;
   }
 }
+
+/* PAGES (specific colors for each page)
+============================================================================= */
+.menu {
+  position:absolute;
+  top:0; 
+  bottom:0; 
+  text-align:center;
+  padding-top:20px;
+  width:100%;
+  background:#ffffff;
+}
+
+.page {
+  position:absolute;
+  top:111px;
+  bottom:0;
+  text-align:center;
+  padding-top:10px;
+  width:100%;
+}
+
+.page-portfolio    { background:#eeeeee; color:#000000; }
+.page-about   { background:#eeeeee; color:#000000; }
+.page-contact   { background:#eeeeee; color:#000000; }
+
 
 #spin {
   height: 60px;

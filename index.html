@@ -41,10 +41,10 @@
     <!-- Login bar -->
     <div class="box topright" ng-include="'views/login.html'" ng-controller="AuthCtrl"></div>
     <!-- Menu bar -->
-    <div class="container menu" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <div class="menu" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
 
     <!-- content -->
-    <div ng-view class="view-container"></div>
+    <div ng-view class="page {{ pageClass }}"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
