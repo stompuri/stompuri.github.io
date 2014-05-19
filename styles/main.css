@@ -25,7 +25,8 @@ html         { overflow-y:scroll; }
   bottom:0;*/
   max-width: 780px;
   top:100px;
-  vertical-align: top; 
+  vertical-align: top;
+  text-align:left;
 }
 
 .top {
@@ -134,7 +135,7 @@ html         { overflow-y:scroll; }
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 2px solid #bbbbbb;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -170,6 +171,7 @@ html         { overflow-y:scroll; }
   max-width: 780px;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 .view-form {
   padding:5px;
@@ -228,21 +230,21 @@ html         { overflow-y:scroll; }
   text-align:center;
   padding-top:20px;
   width:100%;
-  background:#ffffff;
+  background:#eeeeee;
 }
 
 .page {
   position:absolute;
-  top:111px;
+  top:112px;
   bottom:0;
   text-align:center;
   padding-top:10px;
   width:100%;
 }
 
-.page-portfolio    { background:#eeeeee; color:#000000; }
-.page-about   { background:#eeeeee; color:#000000; }
-.page-contact   { background:#eeeeee; color:#000000; }
+.page-portfolio    { background:#dddddd; color:#000000; }
+.page-about   { background:#dddddd; color:#000000; }
+.page-contact   { background:#dddddd; color:#000000; }
 
 
 #spin {
