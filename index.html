@@ -39,12 +39,12 @@
 
     <!-- Add your site or application content here -->
     <!-- Login bar -->
-    <div class="box topright" ng-include="'views/login.html'" ng-controller="AuthCtrl"></div>
+    <div class="box topright" ng-include="'views/login.html'" style="z-index:30;" ng-controller="AuthCtrl"></div>
     <!-- Menu bar -->
-    <div class="menu" ng-include="'views/main.html'" ng-controller="MainCtrl"></div>
+    <div class="menu" ng-include="'views/main.html'" style="z-index:10;" ng-controller="MainCtrl"></div>
 
     <!-- content -->
-    <div ng-view class="page {{ pageClass }}"></div>
+    <div ng-view class="page {{ pageClass }}" style="z-index:20;"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
