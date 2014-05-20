@@ -1,4 +1,8 @@
-	<div class="view-container viewitems" style="margin-top:10px; background:#eeeeee;">
+	<div ng-hide="contentLoaded">
+		<img ng-src="images/spinner.gif">
+	</div>
+
+	<div ng-show="contentLoaded" class="view-container viewitems" style="margin-top:10px; background:#eeeeee;">
 		<div class="view-form">
 			<div class="form-group col-md-2">
 				<img ng-src="{{about.imgUrl}}" class="image" width="150" alt="{{about.name}}" id="pano">

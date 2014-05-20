@@ -1,4 +1,8 @@
-<div class="view-container viewitems">
+<div ng-hide="contentLoaded">
+	<img ng-src="images/spinner.gif">
+</div>
+
+<div ng-show="contentLoaded" class="view-container viewitems">
 	<h3> My SW develoment portfolio </h3>
 
 	<a ng-click="openNewForm()"

@@ -206,9 +206,13 @@ app.controller('AboutCtrl',
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'about'; // Make sure the selection is in 'about'
     $scope.pageClass = 'page-about';
+    $scope.contentLoaded = false;
+
+    $scope.about.$on("loaded", function() {
+      $scope.contentLoaded = true;
+    });
 
     $scope.save = function () {
-
       // Delete old image if such exists and we are pushing a new one
       if($scope.about.hash && $scope.upload.hash) {
         $scope.photos = photoService;
@@ -254,6 +258,12 @@ app.controller('ContactCtrl',
     $scope.selected = 'contact'; // Make sure the selection is in 'about'
     $scope.pageClass = 'page-contact';
     
+    $scope.contentLoaded = false;
+
+    $scope.about.$on("loaded", function() {
+      $scope.contentLoaded = true;
+    });
+
     $scope.save = function () {
       // Create & add the item defined by the input form
       $scope.contact.$set({
@@ -302,18 +312,19 @@ app.controller('PortfolioCtrl',
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'portfolio'; // Make sure the selection is in 'about'
     $scope.pageClass = 'page-portfolio';
-    
-    //var spinner = new Spinner({color: '#ddd'});
+    $scope.items = firebaseService; // Get all items
+
+    $scope.contentLoaded = false;
+
+    $scope.items.$on("loaded", function() {
+      $scope.contentLoaded = true;
+    });
 
     // Get login object
     $scope.loginObj = loginService;
 
     // hide the input form by default
     $scope.inputFormVisible = false;
-
-    // Define the portfolio items:
-    // Get all items
-    $scope.items = firebaseService;
 
     // Add new item
     $scope.addItem = function() {
