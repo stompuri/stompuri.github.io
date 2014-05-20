@@ -23,7 +23,7 @@
 	</div>
 </div>
 
-<div ng-show="loginObj.user" class="container fill border viewbox">
+<div ng-show="loginObj.user" class="container fill border viewbox" style="background-color:#eeeeee;">
 	<div class="deletebtn">
 		<button type="button"
 		  class="btn btn-default btn-xs"
@@ -36,7 +36,7 @@
 		<div class="form-group">
 			<img ng-src="{{item.imgUrl}}" class="image" width="150" alt="{{item.title}}" id="pano-{{item.$id}}">
 			<br>
-			<stfileinput target="{{item.$id}}" accept="image/*"></stfileinput>
+			<stphotoinput target="{{item.$id}}" accept="image/*"></stphotoinput>
 		</div>
 
 		<div class="form-group">

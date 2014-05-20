@@ -4,24 +4,27 @@
 </div>
 
 <div ng-show="loginShown" class="topright box">
-	<div class="login_content">
-		<div class="closebtn">
-			<button type="button"
-			  class="btn btn-default btn-xs"
-			  ng-click="loginShown = false;">
-			  	<span class="glyphicon glyphicon-remove"></span> 
-			</button>
-		</div>
+	<div class="topright">
+		<button type="button"
+		  class="btn btn-default btn-xs"
+		  ng-click="loginShown = false;">
+		  	<span class="glyphicon glyphicon-remove"></span> 
+		</button>
+	</div>
 
+	<div style="text-align: left; margin-left:7px;">
 		<span ng-show="loginObj.user" class="small">
 		  {{loginObj.user.email}} | <a href="#" ng-click="loginObj.$logout()">
 		  Logout</a>
 		</span>
-
+	</div>
+	<div style="text-align: center;">
 		<span ng-hide="loginObj.user" class="small">
 		  Log in to manage portfolio items
 		</span>
+	</div>
 
+	<div class="login_content">
 		<form ng-submit="loginUser()">
 			<div class="input-group input-group-sm textbox">
 			  <input

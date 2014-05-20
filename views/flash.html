@@ -1,8 +1,10 @@
 <div ng-show="message" ng-click="message=null" class="alert flash">
-	<div class="closebtn">
-		<button type="button" class="closebtn">
+	<div>
+		{{message}}
+	</div>
+	<div class="topright">
+		<button type="button">
 		  	X
 		</button>
 	</div>
-	{{message}}
 </div>

@@ -4,31 +4,34 @@
 
 	<div ng-show="contentLoaded" class="view-container viewitems" style="margin-top:10px; background:#eeeeee;">
 		<div class="view-form">
-			<div class="form-group col-md-2">
+			<div class="form-group" style="float:left">
 				<img ng-src="{{about.imgUrl}}" class="image" width="150" alt="{{about.name}}" id="pano">
 			</div>
 
-			<div class="form-group col-md-10">
-				<div class="form-horizontal top">
+			<div class="form-group" style="margin-left:180px">
+				<div class="form">
 					<div class="form-group">
-						<label for="aboutText" class="col-sm-2 control-label">About</label>
-						<div id="aboutText" class="col-sm-10">
+						<label for="aboutText" class="control-label">About</label>
+						<div id="aboutText">
 							{{about.text}}
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="aboutLink" class="col-sm-2 control-label">Link</label>
-						<div id="aboutLink" class="col-sm-10">
-							{{about.link}}
+					<div ng-show="about.link" class="form-group">
+						<label for="aboutLink" class="control-label" style="float:left">Link:</label>
+						<div id="aboutLink" style="margin-left:3em">
+							<a href="{{about.link}}" target="_blank">{{about.link}}</a>
 						</div>
+					</div>
+					<div ng-show="about.fileUrl" class="form-group">
+						<a href="cv.pdf">My CV</a>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<form ng-show="loginObj.user" ng-submit="save()">
+		<form ng-show="loginObj.user" class="border" ng-submit="save()" style="padding:5px">
 			<div class="form-group">
-				<stfileinput accept="image/*"></stfileinput>
+				<stphotoinput accept="image/*"></stphotoinput>
 			</div>
 
 			<div class="form-group">
@@ -69,9 +72,22 @@
 					</input>
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label for="aboutCV" class="col-sm-2 control-label">Url to CV</label>
+				<div class="col-sm-10">
+					<input 
+					  id="aboutCV"
+					  type="text" 
+					  ng-model="about.fileUrl" 
+					  placeholder="<url to CV>" 
+					  class="form-control view-item">
+					</input>
+				</div>
+			</div>
 
 			<div class="form-group">
-				<label for="aboutText" class="control-label">Text</label>
+				<label for="aboutText" class="control-label">About text:</label>
 				<div class="form-group">
 					<textarea
 					  id="aboutText"

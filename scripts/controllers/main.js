@@ -60,14 +60,14 @@ app.factory('PhotoService',
   }
 );
 
-app.factory('ItemsService',
+app.factory('FileService',
   function(FIREBASE, $firebase) {
-    var REF = new Firebase(FIREBASE.url + 'items/');
+    var REF = new Firebase(FIREBASE.url + 'file/');
     return $firebase(REF);
   }
 );
 
-app.factory('ItemService',
+app.factory('ItemsService',
   function(FIREBASE, $firebase) {
     var REF = new Firebase(FIREBASE.url + 'items/');
     return $firebase(REF);
@@ -83,7 +83,11 @@ app.factory('MenuService', function() {
   return 'about';
 });
 
-app.factory('UploadService', function() {
+app.factory('PhotoUploadService', function() {
+  return {url: null, hash: null};
+});
+
+app.factory('FileUploadService', function() {
   return {url: null, hash: null};
 });
 
@@ -117,7 +121,7 @@ app.directive('stitem', ['ItemsService',
   }
 ]);
 
-app.directive('stfileinput', ['FIREBASE', 'UploadService',
+app.directive('stphotoinput', ['FIREBASE', 'PhotoUploadService',
   function(FIREBASE, uploadService) {
     return {
       restrict: 'E',
@@ -145,6 +149,47 @@ app.directive('stfileinput', ['FIREBASE', 'UploadService',
                 // Update img src if such found
                 if(document.getElementById("pano-" + attrs['target'])) {
                   document.getElementById("pano-" + attrs['target']).src = e.target.result;
+                }
+                $scope.upload.url = e.target.result;
+                $scope.upload.hash = hash + '/filePayload';
+              });
+            };
+          })(f, $scope);
+          reader.readAsDataURL(f);
+        });
+      }
+    }
+  }
+]);
+
+app.directive('stfileinput', ['FIREBASE', 'FileUploadService',
+  function(FIREBASE, uploadService) {
+    return {
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      scope: {
+        target: '@target',
+        accept: '@accept'
+      },
+      templateUrl: 'views/fileinput.html',
+      link: function($scope, element, attrs) {
+        element.bind('change', function(event) {
+          var f = event.target.files[0];
+          var reader = new FileReader();
+          $scope.upload = uploadService;
+          reader.onload = ( function(theFile, $scope) {
+            return function(e) {
+              var filePayload = e.target.result;
+              // Generate a location that can't be guessed using the file's contents and a random number
+              var hash = CryptoJS.SHA256(Math.random() + CryptoJS.SHA256(filePayload));
+              var f = new Firebase(FIREBASE.url + 'file/' + hash + '/filePayload');
+              //spinner.spin(document.getElementById('spin'));
+              // Set the file payload to Firebase and register an onComplete handler to stop the spinner and show the preview
+              f.set(filePayload, function() {
+                // Update img src if such found
+                if(document.getElementById("file-" + attrs['target'])) {
+                  document.getElementById("file-" + attrs['target']).src = e.target.result;
                 }
                 $scope.upload.url = e.target.result;
                 $scope.upload.hash = hash + '/filePayload';
@@ -187,7 +232,8 @@ app.controller('AboutCtrl',
    'FlashService', 
    '$scope', 
    '$routeParams', 
-   'UploadService', 
+   'PhotoUploadService',
+   'FileUploadService', 
    'PhotoService', 
    'MenuService',
   function(loginService, 
@@ -195,14 +241,15 @@ app.controller('AboutCtrl',
            flashService, 
            $scope, 
            $routeParams, 
-           uploadService, 
+           uploadService,
+           fileUploadService,
            photoService,
            menuService
            ) {
     $scope.flash = flashService; // Get ref to flash message
     $scope.about = aboutService; // Get ref to about info
     $scope.loginObj = loginService; // Get ref to login info
-    $scope.upload = uploadService; // Get ref to file upload service
+    $scope.upload = uploadService; // Get ref to file upload
     $scope.selected = menuService; // Get handle to menu selection
     $scope.selected = 'about'; // Make sure the selection is in 'about'
     $scope.pageClass = 'page-about';
@@ -219,7 +266,7 @@ app.controller('AboutCtrl',
         $scope.photos.$remove(about.hash);
       }
 
-      // Set about to point to the new photo
+      // Set about to point to the new photo (if such exists)
       if($scope.upload.hash) {
         $scope.about.imgUrl = $scope.upload.url;
         $scope.about.hash = $scope.upload.hash;
@@ -292,7 +339,7 @@ app.controller('PortfolioCtrl',
    'LoginService', 
    'FlashService', 
    'FIREBASE', 
-   'UploadService', 
+   'PhotoUploadService', 
    'PhotoService',
    'MenuService',
   function($scope, 
@@ -337,7 +384,8 @@ app.controller('PortfolioCtrl',
         desc: $scope.item.desc,
         link: $scope.item.link,
         imgUrl: $scope.upload.url,
-        hash: $scope.upload.hash});
+        hash: $scope.upload.hash
+      });
 
       alert($scope.upload.hash);
       // Define the flash pop-up
