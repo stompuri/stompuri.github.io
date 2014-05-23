@@ -134,6 +134,7 @@ app.directive('stphotoinput', ['FIREBASE', 'PhotoUploadService',
       templateUrl: 'views/fileinput.html',
       link: function($scope, element, attrs) {
         element.bind('change', function(event) {
+          alert(1);
           var f = event.target.files[0];
           var reader = new FileReader();
           $scope.upload = uploadService;
@@ -150,6 +151,7 @@ app.directive('stphotoinput', ['FIREBASE', 'PhotoUploadService',
                 if(document.getElementById("pano-" + attrs['target'])) {
                   document.getElementById("pano-" + attrs['target']).src = e.target.result;
                 }
+                alert(e.target.result);
                 $scope.upload.url = e.target.result;
                 $scope.upload.hash = hash + '/filePayload';
               });
@@ -375,6 +377,7 @@ app.controller('PortfolioCtrl',
 
     // Add new item
     $scope.addItem = function() {
+      alert($scope.upload.url);
       $scope.items.$add({
         title: $scope.item.title,
         platform: $scope.item.platform,
