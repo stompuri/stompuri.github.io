@@ -95,7 +95,7 @@ app.factory('FileUploadService', function() {
 app.directive('stflash', function() {
   return {
     restrict: 'AE',
-    replace: true,
+    /*replace: true,*/
     scope: {
       message:'='
     },
@@ -134,7 +134,6 @@ app.directive('stphotoinput', ['FIREBASE', 'PhotoUploadService',
       templateUrl: 'views/fileinput.html',
       link: function($scope, element, attrs) {
         element.bind('change', function(event) {
-          alert(1);
           var f = event.target.files[0];
           var reader = new FileReader();
           $scope.upload = uploadService;
@@ -151,7 +150,6 @@ app.directive('stphotoinput', ['FIREBASE', 'PhotoUploadService',
                 if(document.getElementById("pano-" + attrs['target'])) {
                   document.getElementById("pano-" + attrs['target']).src = e.target.result;
                 }
-                alert(e.target.result);
                 $scope.upload.url = e.target.result;
                 $scope.upload.hash = hash + '/filePayload';
               });
@@ -262,14 +260,17 @@ app.controller('AboutCtrl',
     });
 
     $scope.save = function () {
+      console.log("about.save!");
       // Delete old image if such exists and we are pushing a new one
       if($scope.about.hash && $scope.upload.hash) {
+        console.log(1);
         $scope.photos = photoService;
         $scope.photos.$remove(about.hash);
       }
 
       // Set about to point to the new photo (if such exists)
       if($scope.upload.hash) {
+        console.log(2);
         $scope.about.imgUrl = $scope.upload.url;
         $scope.about.hash = $scope.upload.hash;
       }
@@ -279,6 +280,7 @@ app.controller('AboutCtrl',
 
       // Define the flash pop-up
       $scope.flash.message = "About info edited!";
+      console.log("flash set");
     };
   }
 ]);
@@ -377,25 +379,29 @@ app.controller('PortfolioCtrl',
 
     // Add new item
     $scope.addItem = function() {
-      alert($scope.upload.url);
-      $scope.items.$add({
-        title: $scope.item.title,
-        platform: $scope.item.platform,
-        year: $scope.item.year,
-        lang: $scope.item.lang,
-        loc: $scope.item.loc,
-        desc: $scope.item.desc,
-        link: $scope.item.link,
-        imgUrl: $scope.upload.url,
-        hash: $scope.upload.hash
-      });
+      if($scope.item.title != null && $scope.item.title != '') {
+          $scope.items.$add({
+          title: $scope.item.title,
+          platform: $scope.item.platform,
+          year: $scope.item.year,
+          lang: $scope.item.lang,
+          loc: $scope.item.loc,
+          desc: $scope.item.desc,
+          link: $scope.item.link,
+          imgUrl: $scope.upload.url,
+          hash: $scope.upload.hash
+        });
+        
+        // Define the flash pop-up
+        $scope.flash.message = "A new portfolio item '" + $scope.item.title + "' added!";
+        // Clear & hide the input form
+        $scope.inputFormVisible = false;
+        $scope.item = {};
+      } else {
+        // Define the flash pop-up
+        $scope.flash.message = "Must have title to save new portfolio item!";
+      }
 
-      alert($scope.upload.hash);
-      // Define the flash pop-up
-      $scope.flash.message = "A new portfolio item '" + $scope.item.title + "' added!";
-      // Clear & hide the input form
-      $scope.inputFormVisible = false;
-      $scope.item = {};
     };
 
     // Edit item
